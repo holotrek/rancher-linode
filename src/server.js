@@ -7,6 +7,7 @@ import https from 'https';
 import bodyParser from 'body-parser';
 import merge from 'deepmerge';
 import moment from 'moment';
+import { HelloService } from './hello-service.js';
 
 const app = express();
 const router = express.Router();
@@ -49,7 +50,7 @@ server.listen(process.env.PORT || settings.port);
 console.log(`Listening on ${protocol}://localhost:${settings.port}`);
 
 // Setup routes
-router
-    .get('/test', async (req, res) => {
-	res.send('/api/test successful');
-    });
+router.get('/test', async (req, res) => {
+    const svc = new HelloService();
+    res.send(svc.sayHi('/api/test'));
+});

@@ -1,42 +1,42 @@
 {
-  "name": "rancher-linode",
-  "version": "1.0.0",
-  "description": "Test application for testing Rancher/Linode/Travis-CI.",
-  "main": "src/server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -r esm src/server.js",
-    "serve": "node -r esm src/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:thetablestop/rancher-linode.git"
-  },
-  "author": "Evan Kaiser",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "chalk": "^3.0.0",
-    "cors": "^2.8.5",
-    "deepmerge": "^4.2.2",
-    "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "moment": "^2.24.0"
-  },
-  "devDependencies": {
-    "husky": "^3.1.0",
-    "nodemon": "^2.0.1",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1"
-  },
-  "prettier": {
-    "printWidth": 140,
-    "tabWidth": 4,
-    "singleQuote": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
+    "name": "rancher-linode",
+    "version": "1.0.0",
+    "description": "Test application for testing Rancher/Linode/Travis-CI.",
+    "main": "src/server.js",
+    "scripts": {
+        "test": "echo \"Warn: no test specified\" && exit 0",
+        "start": "nodemon -r esm src/server.js",
+        "serve": "node -r esm src/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:thetablestop/rancher-linode.git"
+    },
+    "author": "Evan Kaiser",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "chalk": "^3.0.0",
+        "cors": "^2.8.5",
+        "deepmerge": "^4.2.2",
+        "esm": "^3.2.25",
+        "express": "^4.17.1",
+        "moment": "^2.24.0"
+    },
+    "devDependencies": {
+        "husky": "^3.1.0",
+        "nodemon": "^2.0.1",
+        "prettier": "^1.19.1",
+        "pretty-quick": "^2.0.1"
+    },
+    "prettier": {
+        "printWidth": 140,
+        "tabWidth": 4,
+        "singleQuote": true
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
     }
-  }
 }
