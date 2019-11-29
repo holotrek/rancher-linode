@@ -8,4 +8,6 @@ services:
 after_success:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER .
+    - docker tag thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER thetablestop/rancher-linode:latest
     - docker push thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER
+    - docker push thetablestop/rancher-linode:latest
