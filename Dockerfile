@@ -14,7 +14,7 @@ COPY package*.json ./
 RUN yarn install --prod
 
 # Copy local code to the container image.
-COPY . ./
+COPY src/. src/
 
 # Copy certs
 COPY certs/thetablestop.* /etc/ssl/
