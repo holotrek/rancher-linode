@@ -1,15 +1,16 @@
 language: node_js
 node_js:
-    - 12
-
+  - 12
+env:
+  - VERSION=1.0.$TRAVIS_BUILD_NUMBER
+  - REPO_TAG=$TRAVIS_REPO_SLUG:$VERSION
+  - REPO_LATEST=$TRAVIS_REPO_SLUG:latest
 services:
-    - docker
-
+  - docker
 script:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER .
-
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t $TAG .
 after_success:
-    - docker tag $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER $TRAVIS_REPO_SLUG:latest
-    - docker push $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER
-    - docker push $TRAVIS_REPO_SLUG:latest
+  - docker tag $TAG $REPO_LATEST
+  - docker push $TAG
+  - docker push $REPO_LATEST
