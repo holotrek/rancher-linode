@@ -258,17 +258,17 @@ kind: Ingress
 metadata:
   annotations:
     field.cattle.io/creatorId: user-b2vbf
-    field.cattle.io/ingressState: '{"c3Rhci10aGV0YWJsZXN0b3AtY29t":"p-tl4z9:star-thetablestop-com","cmFuY2hlci1saW5vZGUvYXBwcy9yYW5jaGVyLWxpbm9kZS50aGV0YWJsZXN0b3AuY29tLy80NDMz":""}'
+    field.cattle.io/ingressState: '{"c3Rhci10aGV0YWJsZXN0b3AtY29t":"p-tl4z9:star-thetablestop-com","cmFuY2hlci1saW5vZGUvYXBwcy9yYW5jaGVyLWxpbm9kZS50aGV0YWJsZXN0b3AuY29tLy84MDgw":""}'
     field.cattle.io/publicEndpoints: '[{"addresses":["104.237.149.74"],"port":443,"protocol":"HTTPS","serviceName":"apps:rancher-linode","ingressName":"apps:rancher-linode","hostname":"rancher-linode.thetablestop.com","allNodes":true}]'
-  creationTimestamp: "2019-12-07T06:23:49Z"
-  generation: 1
+  creationTimestamp: "2019-12-07T06:54:27Z"
+  generation: 3
   labels:
     cattle.io/creator: norman
   name: rancher-linode
   namespace: apps
-  resourceVersion: "6730"
+  resourceVersion: "11548"
   selfLink: /apis/extensions/v1beta1/namespaces/apps/ingresses/rancher-linode
-  uid: 37b1d39f-9e07-4ab7-8559-8ac2c05caf3e
+  uid: 3a881c5d-b0ea-4748-8e90-af3cd0698132
 spec:
   rules:
   - host: rancher-linode.thetablestop.com
@@ -276,7 +276,7 @@ spec:
       paths:
       - backend:
           serviceName: rancher-linode
-          servicePort: 4433
+          servicePort: 8080
   tls:
   - hosts:
     - rancher-linode.thetablestop.com
@@ -287,4 +287,3 @@ status:
     - ip: 104.237.149.74
     - ip: 45.33.79.14
     - ip: 45.33.82.200
----
