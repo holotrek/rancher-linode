@@ -7,9 +7,9 @@ services:
 
 script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER .
+    - docker build -t $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER .
 
 after_success:
-    - docker tag thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER thetablestop/rancher-linode:latest
-    - docker push thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER
-    - docker push thetablestop/rancher-linode:latest
+    - docker tag $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER $TRAVIS_REPO_SLUG:latest
+    - docker push $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER
+    - docker push $TRAVIS_REPO_SLUG:latest
