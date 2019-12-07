@@ -2,6 +2,9 @@
 # https://hub.docker.com/_/node
 FROM node:12-slim
 
+# Setup mount directory
+RUN mkdir -p /mnt/nodeshared
+
 # Create and change to the app directory.
 WORKDIR /home/appusr/app
 
