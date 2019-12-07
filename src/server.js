@@ -1,12 +1,7 @@
-import fs from 'fs';
-import chalk from 'chalk';
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
-import https from 'https';
 import bodyParser from 'body-parser';
-import merge from 'deepmerge';
-import moment from 'moment';
 import axios from 'axios';
 
 const app = express();
