@@ -57,7 +57,7 @@ if (httpsServer) {
 // Setup routes
 router.get('/test', async (req, res) => {
     const nodeTemplateUrl =
-        settings.url.nodeTemplate || `http://${process.env.NODE_TEMPLATE_SERVICE_HOST}:${process.env.NODE_TEMPLATE_SERVICE_PORT}`;
-    const nodeTemplateRes = axios.get(`${nodeTemplateUrl}/api/test`);
-    res.send(`test endpoint successful and ${nodeTemplateRes}`);
+        settings.services.nodeTemplate || `http://${process.env.NODE_TEMPLATE_SERVICE_HOST}:${process.env.NODE_TEMPLATE_SERVICE_PORT}`;
+    const nodeTemplateRes = await axios.get(`${nodeTemplateUrl}/api/test`);
+    res.send(`test endpoint successful and ${nodeTemplateRes.data}`);
 });
