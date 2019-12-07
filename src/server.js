@@ -18,10 +18,10 @@ const settings = merge(generalSettings, envSettings);
 
 let httpServer;
 let httpsServer;
-if (settings.server.http.enabled) {
+if ((settings.server.http || {}).enabled) {
     httpServer = http.createServer(app);
 }
-if (settings.server.https.enabled) {
+if ((settings.server.https || {}).enabled) {
     httpsServer = https.createServer(
         {
             key: fs.readFileSync(settings.server.https.key),
@@ -58,7 +58,8 @@ if (httpsServer) {
 router.get('/test', async (req, res) => {
     try {
         const nodeTemplateUrl =
-            settings.services.nodeTemplate || `http://${process.env.NODE_TEMPLATE_SERVICE_HOST}:${process.env.NODE_TEMPLATE_SERVICE_PORT}`;
+            (settings.services || {}).nodeTemplate ||
+            `http://${process.env.NODE_TEMPLATE_SERVICE_HOST}:${process.env.NODE_TEMPLATE_SERVICE_PORT}`;
         const nodeTemplateRes = await axios.get(`${nodeTemplateUrl}/api/test`);
         res.send(`test endpoint successful and ${nodeTemplateRes.data}`);
     } catch (err) {
