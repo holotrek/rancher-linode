@@ -1,12 +1,290 @@
-kind: Service
 apiVersion: v1
+kind: Pod
 metadata:
-    name: rancher-linode-service
+  annotations:
+    cattle.io/timestamp: "2019-12-07T06:19:34Z"
+    cni.projectcalico.org/podIP: 10.42.2.6/32
+    field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"rancher-linode-nodeport","kind":"NodePort","name":"http","protocol":"TCP","sourcePort":0},{"containerPort":4433,"dnsName":"rancher-linode-nodeport","kind":"NodePort","name":"https","protocol":"TCP","sourcePort":0}]]'
+  creationTimestamp: "2019-12-07T06:19:48Z"
+  generateName: rancher-linode-789bc798-
+  labels:
+    pod-template-hash: 789bc798
+    workload.user.cattle.io/workloadselector: deployment-apps-rancher-linode
+  name: rancher-linode-789bc798-9prjs
+  namespace: apps
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: rancher-linode-789bc798
+    uid: 5a2d1d60-eee6-4e6e-80ce-58d0e3a81d21
+  resourceVersion: "6113"
+  selfLink: /api/v1/namespaces/apps/pods/rancher-linode-789bc798-9prjs
+  uid: 178f2e7e-ffcc-4893-8769-2fa1d9e034af
 spec:
-    selector:
-        app: rancher-linode
-    type: LoadBalancer
+  containers:
+  - env:
+    - name: NODE_ENV
+      value: Production
+    image: thetablestop/rancher-linode
+    imagePullPolicy: Always
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 10
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 2
+    name: rancher-linode
     ports:
-        - protocol: TCP
-          port: 443
-          targetPort:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    - containerPort: 4433
+      name: https
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 10
+      periodSeconds: 2
+      successThreshold: 2
+      timeoutSeconds: 2
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities: {}
+      privileged: false
+      readOnlyRootFilesystem: false
+      runAsNonRoot: false
+    stdin: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    tty: true
+    volumeMounts:
+    - mountPath: /mnt/nodeshared
+      name: nodeshared
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-8f6pq
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: dev-cluster3
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - hostPath:
+      path: /mnt/host
+      type: DirectoryOrCreate
+    name: nodeshared
+  - name: default-token-8f6pq
+    secret:
+      defaultMode: 420
+      secretName: default-token-8f6pq
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2019-12-07T06:19:48Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2019-12-07T06:20:03Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2019-12-07T06:20:03Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2019-12-07T06:19:48Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://24449f610e8f50dbf48e4e398fc7b83fce4645d8a41d82f8f01929bd82733e46
+    image: thetablestop/rancher-linode:latest
+    imageID: docker-pullable://thetablestop/rancher-linode@sha256:583a92fbbe900bd525f564696236d8b60c49bfcee8bb03ebeba962df1845082a
+    lastState: {}
+    name: rancher-linode
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: "2019-12-07T06:19:50Z"
+  hostIP: 192.168.173.246
+  phase: Running
+  podIP: 10.42.2.6
+  qosClass: BestEffort
+  startTime: "2019-12-07T06:19:48Z"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+    field.cattle.io/creatorId: user-b2vbf
+    field.cattle.io/publicEndpoints: '[{"addresses":["104.237.149.74"],"port":32576,"protocol":"TCP","serviceName":"apps:rancher-linode-nodeport","allNodes":true},{"addresses":["104.237.149.74"],"port":32454,"protocol":"TCP","serviceName":"apps:rancher-linode-nodeport","allNodes":true},{"addresses":["104.237.149.74"],"port":443,"protocol":"HTTPS","serviceName":"apps:rancher-linode","ingressName":"apps:rancher-linode","hostname":"rancher-linode.thetablestop.com","allNodes":true}]'
+  creationTimestamp: "2019-12-07T06:17:04Z"
+  generation: 4
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-apps-rancher-linode
+  name: rancher-linode
+  namespace: apps
+  resourceVersion: "6739"
+  selfLink: /apis/apps/v1/namespaces/apps/deployments/rancher-linode
+  uid: 31950d61-f60c-476b-b0a1-a4b7a43740e5
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-apps-rancher-linode
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp: "2019-12-07T06:19:34Z"
+        field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"rancher-linode-nodeport","kind":"NodePort","name":"http","protocol":"TCP","sourcePort":0},{"containerPort":4433,"dnsName":"rancher-linode-nodeport","kind":"NodePort","name":"https","protocol":"TCP","sourcePort":0}]]'
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-apps-rancher-linode
+    spec:
+      containers:
+      - env:
+        - name: NODE_ENV
+          value: Production
+        image: thetablestop/rancher-linode
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 2
+        name: rancher-linode
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 4433
+          name: https
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 2
+          timeoutSeconds: 2
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /mnt/nodeshared
+          name: nodeshared
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /mnt/host
+          type: DirectoryOrCreate
+        name: nodeshared
+status:
+  availableReplicas: 3
+  conditions:
+  - lastTransitionTime: "2019-12-07T06:17:11Z"
+    lastUpdateTime: "2019-12-07T06:17:11Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2019-12-07T06:17:04Z"
+    lastUpdateTime: "2019-12-07T06:20:17Z"
+    message: ReplicaSet "rancher-linode-789bc798" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 4
+  readyReplicas: 3
+  replicas: 3
+  updatedReplicas: 3
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/creatorId: user-b2vbf
+    field.cattle.io/ingressState: '{"c3Rhci10aGV0YWJsZXN0b3AtY29t":"p-tl4z9:star-thetablestop-com","cmFuY2hlci1saW5vZGUvYXBwcy9yYW5jaGVyLWxpbm9kZS50aGV0YWJsZXN0b3AuY29tLy80NDMz":""}'
+    field.cattle.io/publicEndpoints: '[{"addresses":["104.237.149.74"],"port":443,"protocol":"HTTPS","serviceName":"apps:rancher-linode","ingressName":"apps:rancher-linode","hostname":"rancher-linode.thetablestop.com","allNodes":true}]'
+  creationTimestamp: "2019-12-07T06:23:49Z"
+  generation: 1
+  labels:
+    cattle.io/creator: norman
+  name: rancher-linode
+  namespace: apps
+  resourceVersion: "6730"
+  selfLink: /apis/extensions/v1beta1/namespaces/apps/ingresses/rancher-linode
+  uid: 37b1d39f-9e07-4ab7-8559-8ac2c05caf3e
+spec:
+  rules:
+  - host: rancher-linode.thetablestop.com
+    http:
+      paths:
+      - backend:
+          serviceName: rancher-linode
+          servicePort: 4433
+  tls:
+  - hosts:
+    - rancher-linode.thetablestop.com
+    secretName: star-thetablestop-com
+status:
+  loadBalancer:
+    ingress:
+    - ip: 104.237.149.74
+    - ip: 45.33.79.14
+    - ip: 45.33.82.200
+---
