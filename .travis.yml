@@ -5,9 +5,11 @@ node_js:
 services:
     - docker
 
-after_success:
+script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER .
+
+after_success:
     - docker tag thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER thetablestop/rancher-linode:latest
     - docker push thetablestop/rancher-linode:$TRAVIS_BUILD_NUMBER
     - docker push thetablestop/rancher-linode:latest
