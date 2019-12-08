@@ -4,13 +4,20 @@ node_js:
 notifications:
   slack: thetablestop:X9qXusai6XjRfiV11LSbdemj
 env:
-  - VERSION=1.0
+  - VERSION_PREFIX=1.0
 services:
   - docker
 script:
+  - export FULL_VERSION=$VERSION_PREFIX.$TRAVIS_BUILD_NUMBER
+  - export REPO_TAGGED=$TRAVIS_REPO_SLUG:$FULL_VERSION
+  - export REPO_LATEST=$TRAVIS_REPO_SLUG:latest
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t $TRAVIS_REPO_SLUG:$VERSION.$TRAVIS_BUILD_NUMBER .
+  - docker build -t $REPO_TAGGED .
 after_success:
-  - docker tag $TRAVIS_REPO_SLUG:$VERSION.$TRAVIS_BUILD_NUMBER $TRAVIS_REPO_SLUG:latest
-  - docker push $TRAVIS_REPO_SLUG:$VERSION.$TRAVIS_BUILD_NUMBER
-  - docker push $TRAVIS_REPO_SLUG:latest
+  - docker tag $REPO_TAGGED $REPO_LATEST
+  - docker push $REPO_TAGGED
+  - docker push $REPO_LATEST
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - git tag $FULL_VERSION -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+  - git push --tags
