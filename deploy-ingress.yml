@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: apps
+  name: rancher-linode
+spec:
+  rules:
+  - host: rancher-linode.thetablestop.com
+    http:
+      paths:
+      - backend:
+          serviceName: rancher-linode
+          servicePort: 8080
+  tls:
+  - hosts:
+    - rancher-linode.thetablestop.com
+    secretName: star-thetablestop-com

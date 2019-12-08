@@ -3,3 +3,12 @@ stages:
   steps:
   - applyYamlConfig:
       path: ./deployment.yml
+  - applyYamlConfig:
+      path: ./deploy-ingress.yml
+notification:
+  recipients:
+  - recipient: builds
+    notifier: c-mrlxw:n-vqrmn
+  condition:
+  - Success
+  - Failed
