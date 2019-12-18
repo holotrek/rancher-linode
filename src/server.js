@@ -33,7 +33,7 @@ router.get('/test', async (req, res) => {
         const intResult = await axios.get(`http://${intHost}:${intPort}/api/test`);
         res.send(`test endpoint successful and ${intResult.data}`);
     } catch (err) {
-        console.err(err);
+        console.error(err);
         res.sendStatus(500);
     }
 });
