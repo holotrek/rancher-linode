@@ -21,6 +21,7 @@
         "cors": "^2.8.5",
         "esm": "^3.2.25",
         "express": "^4.17.1",
+        "github-oauth": "^0.2.2",
         "moment": "^2.24.0"
     },
     "devDependencies": {
