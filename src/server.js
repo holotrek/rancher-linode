@@ -9,6 +9,22 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
     console.error('GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET environment variables required');
     process.exit(1);
 }
+const getOAuth = req => {
+    const oauth = githubOAuth({
+        githubClient: process.env.GITHUB_CLIENT_ID,
+        githubSecret: process.env.GITHUB_CLIENT_SECRET,
+        baseURL: `${req.protocol}://${req.hostname}:${req.socket.localPort}`,
+        loginURI: '/auth/github',
+        callbackURI: '/auth/github/callback'
+    });
+    oauth.on('error', function(err) {
+        console.error('Login error:', err);
+    });
+    oauth.on('token', function(token, serverResponse) {
+        serverResponse.end(JSON.stringify(token));
+    });
+    return oauth;
+};
 
 const app = express();
 const router = express.Router();
@@ -33,30 +49,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
     })
     .get('/auth/github', async (req, res) => {
         console.log('started oauth');
-        return oauth.login(req, res);
+        return getOAuth(req).login(req, res);
     })
     .get('/auth/github/callback', async (req, res) => {
         console.log('received callback');
-        return oauth.callback(req, res);
+        return getOAuth(req).callback(req, res);
     });
 
 const port = process.env.NODE_PORT || 3001;
 httpServer.listen(port);
 console.log(`Listening on http://localhost:${port}`);
-
-const oauth = githubOAuth({
-    githubClient: process.env.GITHUB_CLIENT_ID,
-    githubSecret: process.env.GITHUB_CLIENT_SECRET,
-    baseURL: process.env.BASE_URL || `http://localhost:${port}`,
-    loginURI: '/auth/github',
-    callbackURI: '/auth/github/callback'
-});
-oauth.on('error', function(err) {
-    console.error('Login error:', err);
-});
-oauth.on('token', function(token, serverResponse) {
-    serverResponse.end(JSON.stringify(token));
-});
 
 // Setup routes
 router.get('/test', async (req, res) => {
