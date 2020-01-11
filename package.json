@@ -22,7 +22,9 @@
         "esm": "^3.2.25",
         "express": "^4.17.1",
         "github-oauth": "^0.2.2",
-        "moment": "^2.24.0"
+        "mime": "^2.4.4",
+        "moment": "^2.24.0",
+        "request": "^2.88.0"
     },
     "devDependencies": {
         "husky": "^3.1.0",
