@@ -17,7 +17,6 @@ spec:
       - backend:
           serviceName: rancher-linode
           servicePort: http
-        path: /auth
   tls:
   - hosts:
     - rancher-linode.thetablestop.com

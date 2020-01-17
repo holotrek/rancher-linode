@@ -13,7 +13,7 @@ const getOAuth = req => {
     const oauth = githubOAuth({
         githubClient: process.env.GITHUB_CLIENT_ID,
         githubSecret: process.env.GITHUB_CLIENT_SECRET,
-        baseURL: `${req.protocol}://${req.hostname}:${req.socket.localPort}`,
+        baseURL: process.env.BASE_URL || `${req.protocol}://${req.hostname}:${req.socket.localPort}`,
         loginURI: '/auth/github',
         callbackURI: '/auth/github/callback'
     });
