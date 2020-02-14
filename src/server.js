@@ -43,9 +43,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
         <h2>Version: ${pkg.version}</h2>`);
     })
     .get('/auth', (req, res) => {
-        res.send(
-            `<h1>Login</h1><h2>Click below to login with GitHub Auth</h2><a href="${req.protocol}://${req.hostname}:${req.socket.localPort}/auth/github">Login with GitHub</a>`
-        );
+        const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.hostname}:${req.socket.localPort}`;
+        res.send(`<h1>Login</h1><h2>Click below to login with GitHub Auth</h2><a href="${baseUrl}/auth/github">Login with GitHub</a>`);
     })
     .get('/auth/github', async (req, res) => {
         console.log('started oauth');
