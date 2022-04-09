@@ -23,7 +23,7 @@
         "express": "^4.17.1",
         "github-oauth": "^0.2.2",
         "mime": "^2.4.4",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "request": "^2.88.0"
     },
     "devDependencies": {
